@@ -2,7 +2,9 @@ package project.rest;
 
 import project.entity.MyUser;
 import project.entity.Role;
+import project.exeptions.AlreadyExists;
 import project.mapper.MyUserMapper;
+import project.repository.UserRepository;
 import project.rest.model.MyUserDTO;
 import project.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 public class RegisterController {
@@ -19,13 +20,16 @@ public class RegisterController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping(value = "/register")
     public String registerForm(Model model) {
         MyUser user = new MyUser();
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
-        user.setEnabled(true);
+        user.setEnabled(false);
 
         model.addAttribute("user", user);
 
@@ -33,9 +37,15 @@ public class RegisterController {
     }
 
     @PostMapping(value = "/register")
-    public String registerUser(@ModelAttribute("user") @RequestBody MyUserDTO myUserDTO) {
+    public String registerUser(@ModelAttribute("user") @RequestBody MyUserDTO myUserDTO) throws Exception {
+
         if (myUserDTO.getPassword().equalsIgnoreCase(myUserDTO.getPasswordConfirm())) {
             myUserDTO.setRoles(Set.of(new Role("ROLE_USER")));
+
+            if (emailExists(myUserDTO.getEmail())) {
+                throw new AlreadyExists("There is an account with that email address: " + myUserDTO.getEmail());
+            }
+
             MyUserMapper.fromEntityToDTO(userService.saveUser(MyUserMapper.fromDtoToEntity(myUserDTO)));
             return "register-success";
         } else {
@@ -43,4 +53,7 @@ public class RegisterController {
         }
     }
 
+    private boolean emailExists(final String email) {
+        return userRepository.findByEmail(email) != null;
+    }
 }

@@ -26,10 +26,8 @@ public class ActivationController {
 
     @PostMapping(value = "/activation/{randomToken}")
     public String registerUser(@ModelAttribute("user") @RequestBody MyUser user) {
-            userService.findUserByRandomToken(user.getRandomToken()).setEnabled(true);
-            userRepository.save(userService.findUserByRandomToken(user.getRandomToken()));
-            return "activation-success";
-
+        userService.findUserByRandomToken(user.getRandomToken()).setEnabled(true);
+        userRepository.save(userService.findUserByRandomToken(user.getRandomToken()));
+        return "activation-success";
     }
-
 }

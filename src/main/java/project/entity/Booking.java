@@ -24,11 +24,9 @@ public class Booking {
     private LocalDate reservationDate;
 
     @DateTimeFormat(pattern = "HH:mm")
-    @Column
     private LocalTime startTime;
 
     @DateTimeFormat(pattern = "HH:mm")
-    @Column
     private LocalTime endTime;
 
     @OneToOne(cascade = CascadeType.ALL)

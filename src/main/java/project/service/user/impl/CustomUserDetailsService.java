@@ -1,6 +1,5 @@
 package project.service.user.impl;
 
-
 import project.entity.MyUser;
 import project.entity.Role;
 import project.service.user.UserService;
@@ -45,6 +44,5 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(myUser.getUsername(), myUser.getPassword(),
                 myUser.isEnabled(), myUser.isAccountNonExpired(),myUser.isCredentialsNonExpired(), myUser.isAccountNonLocked(), authorities);
     }
-
 }
 

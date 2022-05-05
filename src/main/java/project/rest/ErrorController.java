@@ -21,5 +21,4 @@ public class ErrorController {
         model.addAttribute("errorMessage", errorMessage);
         return "login-error";
     }
-
 }

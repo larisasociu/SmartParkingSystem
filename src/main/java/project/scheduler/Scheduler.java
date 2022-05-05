@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Service
 @Slf4j
-public class RentSchedulere {
+public class Scheduler {
 
     @Scheduled(cron = "1 * * * * *")
     public void sendMailOverdueToClient() {

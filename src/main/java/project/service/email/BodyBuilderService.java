@@ -4,6 +4,5 @@ import project.entity.MyUser;
 
 public interface BodyBuilderService {
 
-    String emailBody (MyUser myUser);
-
+    String emailBody(MyUser myUser);
 }
