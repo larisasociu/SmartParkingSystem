@@ -1,12 +1,15 @@
 package project.rest;
 
 import project.entity.Booking;
+import project.mapper.BookingMapper;
 import project.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import project.rest.model.BookingDTO;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookingController {
@@ -15,13 +18,13 @@ public class BookingController {
     private BookingRepository bookingRepository;
 
     @PostMapping(value = "/booking")
-    public void saveBooking(@RequestBody Booking booking) {
-        bookingRepository.save(booking);
+    public Booking saveBooking(@RequestBody BookingDTO bookingDTO) {
+        return bookingRepository.save(BookingMapper.fromDtoToEntity(bookingDTO));
     }
 
     @GetMapping(value = "/booking/all")
-    public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+    public List<BookingDTO> getAllBookings() {
+        return bookingRepository.findAll().stream().map(BookingMapper::fromEntityToDto).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/booking/{id}")

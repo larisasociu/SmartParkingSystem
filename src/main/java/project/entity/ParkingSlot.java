@@ -2,6 +2,7 @@ package project.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
+@NoArgsConstructor
 public class ParkingSlot {
 
     @Id
@@ -26,4 +28,9 @@ public class ParkingSlot {
     @JsonIgnore
     private Booking booking;
 
+    public ParkingSlot(String slotNumber, boolean available, Booking booking) {
+        this.slotNumber = slotNumber;
+        this.available = available;
+        this.booking = booking;
+    }
 }

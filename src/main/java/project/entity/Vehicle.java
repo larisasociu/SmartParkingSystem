@@ -2,6 +2,7 @@ package project.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Vehicle {
 
     @Id
@@ -27,4 +29,9 @@ public class Vehicle {
     @JsonIgnore
     private Booking booking;
 
+    public Vehicle(String vehicleNumber, VehicleType vehicleType, Booking booking) {
+        this.vehicleNumber = vehicleNumber;
+        this.vehicleType = vehicleType;
+        this.booking = booking;
+    }
 }

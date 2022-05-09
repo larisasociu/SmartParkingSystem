@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Slf4j
 public class Scheduler {
 
-    @Scheduled(cron = "1 * * * * *")
-    public void sendMailOverdueToClient() {
-        System.out.println(LocalDateTime.now());
+    @Scheduled(cron = "0 */2 * * * *")
+    public void someJob() throws InterruptedException {
+        System.out.println("Time now " + LocalDateTime.now());
     }
 }

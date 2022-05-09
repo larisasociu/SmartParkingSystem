@@ -39,11 +39,11 @@ public class RegisterController {
     @PostMapping(value = "/register")
     public String registerUser(@ModelAttribute("user") @RequestBody MyUserDTO myUserDTO) throws Exception {
 
-        if (myUserDTO.getPassword().equalsIgnoreCase(myUserDTO.getPasswordConfirm())) {
+        if (myUserDTO.getPassword().equals(myUserDTO.getPasswordConfirm())) {
             myUserDTO.setRoles(Set.of(new Role("ROLE_USER")));
 
             if (emailExists(myUserDTO.getEmail())) {
-                throw new AlreadyExists("There is an account with that email address: " + myUserDTO.getEmail());
+                throw new AlreadyExists("Account with this email address already exists: " + myUserDTO.getEmail());
             }
 
             MyUserMapper.fromEntityToDTO(userService.saveUser(MyUserMapper.fromDtoToEntity(myUserDTO)));
