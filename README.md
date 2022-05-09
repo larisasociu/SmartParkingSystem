@@ -6,7 +6,7 @@ A parking system where users can log in with an email token and can perform CRUD
 Spring Boot application using Maven <br>
 pom.xml contains all dependencies <br>
 used MySql as relation database <br>
-OOP concepts
+OOP concepts*
 
 # Technologies
 * Spring Boot
