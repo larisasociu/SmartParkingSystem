@@ -11,7 +11,7 @@ OOP concepts*
 # Technologies
 * Spring Boot
 * Spring Security
-* Sptring REST
+* Spring REST
 * JPA
 * Thymeleaf
 * Maven
